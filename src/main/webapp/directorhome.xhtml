@@ -1,0 +1,75 @@
+<html xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://java.sun.com/jsf/html">
+      <h:head>
+      	<title>Director Home</title>
+      </h:head>
+	<h:body style="background-color: #e8f0eb; padding-top: 50px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px;">
+	<b:navBar brand="LetUsKnow" brandHref="index.jsf" inverse="true" fixed="top">
+            <b:navbarLinks>
+                <b:navLink value="Home" href="index.jsf"> <b:iconAwesome value="fa-home" /> <br/> </b:navLink>
+			    <b:navLink value="Contact Us" href="contact.jsf"></b:navLink>
+			    <b:navLink value="Announcement" href="announcements.jsf"> <b:iconAwesome value="fa-list" /> <br/></b:navLink>
+			    <b:navLink rendered="#{d.directorLoggedIn}" value="Announcement Form" href="announcementform.jsf"></b:navLink>
+			    <b:navLink value="Admin" href="admin"></b:navLink>
+			    <b:navLink value="Director" href="director"></b:navLink>
+			    <b:navLink rendered="#{user.loggedIn}" value="Grieviances" href="grieviances.jsf"><b:iconAwesome value="fa-male" /> <br/></b:navLink>
+			    <b:navLink rendered="#{user.loggedIn}" value="Grieviances Form" href="grievianceform.jsf"><b:iconAwesome value="fa-male" /> <br/></b:navLink>
+            </b:navbarLinks>
+            <h:form styleClass="navbar-form navbar-right">
+                <b:commandButton rendered="#{not user.loggedIn}" action="login.jsf" value="Sign in" look="success" icon="chevron-right" iconAlign="right"/>
+                <h:form>
+                <b:dropButton rendered="#{user.loggedIn}" look="info" value="Account">
+				  <b:commandButton action="profile.jsf" value="Profile" look="info" icon="chevron-right" iconAlign="right"/>	
+				  <b:navLink></b:navLink>	
+				  <b:commandButton action="#{user.logout()}" value="Logout" look="success" icon="chevron-right" iconAlign="right"/>
+				</b:dropButton>
+                </h:form>
+            </h:form>
+        </b:navBar>
+		<h1>Director Home</h1><hr />
+		<b:row>
+  <b:column span="6">
+	<h2>Grievances</h2>
+		<h:form>
+			<b:commandButton look="Success" value="Reply Form" action="replyform.jsf" /><br /><br />
+		  <b:dataTable class="margin: 20px;" value="#{grieviance.grieviances}"
+		               var="row"
+		               excel="true"
+		               csv="true"
+		               pdf="true"
+		               columnVisibility="true"
+		               copy="true"
+		               print="true"
+		               >
+		    <b:dataTableColumn value="#{row.id}"  order="asc" />
+		    <b:dataTableColumn value="#{row.subject}" />
+		    <b:dataTableColumn value="#{row.organization}" />
+		    <b:dataTableColumn value="#{row.department}" />
+		    <b:dataTableColumn value="#{row.issue}"/>
+		    <b:dataTableColumn value="#{row.username}" />
+		    <b:dataTableColumn value="#{row.type}" />
+		  </b:dataTable>
+		</h:form>
+	</b:column>
+  <b:column span="6"><br /><br />
+  <h2>Replies</h2>
+		<h:form>
+		  <b:dataTable class="margin: 20px;" value="#{reply.replies}"
+		               var="row"
+		               excel="true"
+		               csv="true"
+		               pdf="true"
+		               columnVisibility="true"
+		               copy="true"
+		               print="true"
+		               >
+		    <b:dataTableColumn value="#{row.id}"  order="asc" />
+		    <b:dataTableColumn value="#{row.subject}" />
+		    <b:dataTableColumn value="#{row.reply}" />
+		    <b:dataTableColumn value="#{row.postedby}"/>
+		  </b:dataTable>
+		</h:form><br />
+	</b:column>
+</b:row>
+	</h:body>
+</html>

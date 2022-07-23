@@ -1,0 +1,80 @@
+<html xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+	<h:head>
+		<title>Home</title>
+    	<h:outputStylesheet name="/css/bootstrap.min.css"/>
+	</h:head>
+	<h:body style="background-color: #e8f0eb; padding-top: 50px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px;">
+		<b:navBar brand="LetUsKnow" brandHref="index.jsf" inverse="true" fixed="top">
+            <b:navbarLinks>
+                <b:navLink value="Home" href="index.jsf"> <b:iconAwesome value="fa-home" /> <br/> </b:navLink>
+			    <b:navLink value="Contact Us" href="contact.jsf"></b:navLink>
+			    <b:navLink value="Announcement" href="announcements.jsf"> <b:iconAwesome value="fa-list" /> <br/></b:navLink>
+			    <b:navLink rendered="#{d.directorLoggedIn}" value="Announcement Form" href="announcementform.jsf"></b:navLink>
+			    <b:navLink value="Admin" href="admin"></b:navLink>
+			    <b:navLink value="Director" href="director"></b:navLink>
+			    <b:navLink rendered="#{user.loggedIn}" value="Grieviances" href="grieviances.jsf"><b:iconAwesome value="fa-male" /> <br/></b:navLink>
+			    <b:navLink rendered="#{user.loggedIn}" value="Grieviances Form" href="grievianceform.jsf"><b:iconAwesome value="fa-male" /> <br/></b:navLink>
+            </b:navbarLinks>
+            <h:form styleClass="navbar-form navbar-right">
+                <b:commandButton rendered="#{not user.loggedIn}" action="login.jsf" value="Sign in" look="success" icon="chevron-right" iconAlign="right"/>
+                <h:form>
+                <b:dropButton rendered="#{user.loggedIn}" look="info" value="Account">
+				  <b:commandButton action="profile.jsf" value="Profile" look="info" icon="chevron-right" iconAlign="right"/>	
+				  <b:navLink></b:navLink>	
+				  <b:commandButton action="#{user.logout()}" value="Logout" look="success" icon="chevron-right" iconAlign="right"/>
+				</b:dropButton>
+                </h:form>
+            </h:form>
+        </b:navBar>
+
+<b:jumbotron style="background-color: #f1f8ff; padding: 100px;">
+		  <h1>Contact Us</h1>
+  <p>Contact us through the mail: letusknow@example.com (or) through LinkedIn</p>
+  <p><a class="btn btn-warning btn-lg">For More Details</a></p>
+		</b:jumbotron>
+		<b:panel>
+<b:row>
+<b:column col-sm="6" col-md="4">
+    <b:thumbnail>
+      <f:facet name="caption">
+        <h3>Surya Chakailala</h3>
+        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+        <p>
+        
+        <b:button look="primary" value="LinkedIn"/>
+      
+        </p>
+      </f:facet>
+    </b:thumbnail>
+  </b:column>
+  <b:column col-sm="6" col-md="4">
+    <b:thumbnail>
+      <f:facet name="caption">
+        <h3>Prasanth Nalluri</h3>
+        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+        <p>
+        <b:button look="primary" value="LinkedIn"/>
+        
+        </p>
+      </f:facet>
+    </b:thumbnail>
+  </b:column>
+  <b:column col-sm="6" col-md="4">
+    <b:thumbnail>
+      <f:facet name="caption">
+        <h3>Sahithi Nethi</h3>
+        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+        <p>
+        <b:button look="primary" value="LinkedIn"/>
+       
+        </p>
+      </f:facet>
+    </b:thumbnail>
+  </b:column>
+  
+  </b:row>
+  </b:panel>
+	</h:body>
+</html>

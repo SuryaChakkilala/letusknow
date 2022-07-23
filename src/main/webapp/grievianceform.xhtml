@@ -1,0 +1,48 @@
+<html xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui">
+	<h:head>
+		<title>Grieviance Form</title>
+		<h:outputStylesheet name="/css/bootstrap.min.css"/>  
+	</h:head>
+	<h:body style="background-color: #e8f0eb; padding-top: 50px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px;">
+		<b:navBar brand="LetUsKnow" brandHref="index.jsf" inverse="true" fixed="top">
+            <b:navbarLinks>
+                <b:navLink value="Home" href="index.jsf"> <b:iconAwesome value="fa-home" /> <br/> </b:navLink>
+			    <b:navLink value="Contact Us" href="contact.jsf"></b:navLink>
+			    <b:navLink value="Announcement" href="announcements.jsf"> <b:iconAwesome value="fa-list" /> <br/></b:navLink>
+			    <b:navLink rendered="#{d.directorLoggedIn}" value="Announcement Form" href="announcementform.jsf"></b:navLink>
+			    <b:navLink value="Admin" href="admin"></b:navLink>
+			    <b:navLink value="Director" href="director"></b:navLink>
+			    <b:navLink rendered="#{user.loggedIn}" value="Grieviances" href="grieviances.jsf"><b:iconAwesome value="fa-male" /> <br/></b:navLink>
+			    <b:navLink rendered="#{user.loggedIn}" value="Grieviances Form" href="grievianceform.jsf"><b:iconAwesome value="fa-male" /> <br/></b:navLink>
+            </b:navbarLinks>
+            <h:form styleClass="navbar-form navbar-right">
+                <b:commandButton rendered="#{not user.loggedIn}" action="login.jsf" value="Sign in" look="success" icon="chevron-right" iconAlign="right"/>
+                <h:form>
+                <b:dropButton rendered="#{user.loggedIn}" look="info" value="Account">
+				  <b:commandButton action="profile.jsf" value="Profile" look="info" icon="chevron-right" iconAlign="right"/>	
+				  <b:navLink></b:navLink>	
+				  <b:commandButton action="#{user.logout()}" value="Logout" look="success" icon="chevron-right" iconAlign="right"/>
+				</b:dropButton>
+                </h:form>
+            </h:form>
+        </b:navBar><br /><br />
+        <b:container>
+        <b:panel>
+		<h1 align='center'>Grieviance Form</h1>
+		<hr style="background: black; height: 2px;"/>
+		<h:form>
+			<div class="form-group">
+				ID: <h:inputText class="form-control" value="#{grieviance.id}" /><br /><br />
+				Subject: <h:inputText class="form-control" value="#{grieviance.subject}" /><br /><br />
+				Organization: <h:inputText class="form-control" value="#{grieviance.organization}" /><br /><br />
+				Department: <h:inputText class="form-control" value="#{grieviance.department}" /><br /><br />
+				Issue: <h:inputText class="form-control" value="#{grieviance.issue}" /><br /><br />
+				Type: <h:inputText class="form-control" value="#{grieviance.type}" /><br /><br />
+				<h:commandButton class="btn btn-primary" action="#{grieviance.addGrieviance()}" value="Submit" />
+			</div>
+		</h:form>
+		</b:panel>
+		</b:container>
+	</h:body>
+</html>

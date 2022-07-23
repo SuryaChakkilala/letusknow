@@ -1,0 +1,39 @@
+<html xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+	<h:head>
+		<title>Home</title>
+    	<h:outputStylesheet name="/css/bootstrap.min.css"/>
+    	<f:metadata>
+		    <f:event type="preRenderView" listener="#{user.getProfileDetails()}" />
+		</f:metadata>
+	</h:head>
+	<h:body style="background-color: #e8f0eb; padding-top: 50px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px;">
+		<b:navBar brand="LetUsKnow" brandHref="index.jsf" inverse="true" fixed="top">
+            <b:navbarLinks>
+                <b:navLink value="Home" href="index.jsf"> <b:iconAwesome value="fa-home" /> <br/> </b:navLink>
+			    <b:navLink value="Contact Us" href="contact.jsf"></b:navLink>
+			    <b:navLink value="Announcement" href="announcements.jsf"> <b:iconAwesome value="fa-list" /> <br/></b:navLink>
+			    <b:navLink rendered="#{d.directorLoggedIn}" value="Announcement Form" href="announcementform.jsf"></b:navLink>
+			    <b:navLink value="Admin" href="admin"></b:navLink>
+			    <b:navLink value="Director" href="director"></b:navLink>
+			    <b:navLink rendered="#{user.loggedIn}" value="Grieviances" href="grieviances.jsf"><b:iconAwesome value="fa-male" /> <br/></b:navLink>
+			    <b:navLink rendered="#{user.loggedIn}" value="Grieviances Form" href="grievianceform.jsf"><b:iconAwesome value="fa-male" /> <br/></b:navLink>
+            </b:navbarLinks>
+            <h:form styleClass="navbar-form navbar-right">
+                <b:commandButton rendered="#{not user.loggedIn}" action="login.jsf" value="Sign in" look="success" icon="chevron-right" iconAlign="right"/>
+                <h:form>
+                <b:dropButton rendered="#{user.loggedIn}" look="info" value="Account">
+				  <b:commandButton action="profile.jsf" value="Profile" look="info" icon="chevron-right" iconAlign="right"/>	
+				  <b:navLink></b:navLink>	
+				  <b:commandButton action="#{user.logout()}" value="Logout" look="success" icon="chevron-right" iconAlign="right"/>
+				</b:dropButton>
+                </h:form>
+            </h:form>
+        </b:navBar>
+		<h1>Profile</h1>
+		#{user.firstName}
+		#{user.lastName}
+		#{user.address}
+	</h:body>
+</html>

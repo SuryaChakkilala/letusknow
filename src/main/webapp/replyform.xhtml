@@ -1,0 +1,48 @@
+<html xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui">
+	<h:head>
+		<title>Register</title>
+		<h:outputStylesheet name="/css/bootstrap.min.css"/>
+	</h:head>
+	<h:body style="background-color: #e8f0eb; padding-top: 50px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px;">
+	<b:navBar brand="LetUsKnow" brandHref="index.jsf" inverse="true" fixed="top">
+            <b:navbarLinks>
+                <b:navLink value="Home" href="index.jsf"> <b:iconAwesome value="fa-home" /> <br/> </b:navLink>
+			    <b:navLink value="Contact Us" href="contact.jsf"></b:navLink>
+			    <b:navLink value="Announcement" href="announcements.jsf"> <b:iconAwesome value="fa-list" /> <br/></b:navLink>
+			    <b:navLink rendered="#{d.directorLoggedIn}" value="Announcement Form" href="announcementform.jsf"></b:navLink>
+			    <b:navLink value="Admin" href="admin"></b:navLink>
+			    <b:navLink value="Director" href="director"></b:navLink>
+			    <b:navLink rendered="#{user.loggedIn}" value="Grieviances" href="grieviances.jsf"><b:iconAwesome value="fa-male" /> <br/></b:navLink>
+			    <b:navLink rendered="#{user.loggedIn}" value="Grieviances Form" href="grievianceform.jsf"><b:iconAwesome value="fa-male" /> <br/></b:navLink>
+            </b:navbarLinks>
+            <h:form styleClass="navbar-form navbar-right">
+                <b:commandButton rendered="#{not user.loggedIn}" action="login.jsf" value="Sign in" look="success" icon="chevron-right" iconAlign="right"/>
+                <h:form>
+                <b:dropButton rendered="#{user.loggedIn}" look="info" value="Account">
+				  <b:commandButton action="profile.jsf" value="Profile" look="info" icon="chevron-right" iconAlign="right"/>	
+				  <b:navLink></b:navLink>	
+				  <b:commandButton action="#{user.logout()}" value="Logout" look="success" icon="chevron-right" iconAlign="right"/>
+				</b:dropButton>
+                </h:form>
+            </h:form>
+        </b:navBar>
+		<div style="margin: 60px;">
+			<h2 style="align: center; margin-top: -20px;" class="lead">Reply Form</h2>
+			<h:form class="form-group">
+				ID: <h:inputText value="#{reply.id}" /><br />
+				Reply: <h:inputText value="#{reply.reply}" /><br />
+				<h:commandButton class="btn btn-success" action="#{reply.insert()}" value="Reply" />
+			</h:form>
+		</div>
+	</h:body>
+	 <script>
+	    var form_fields = document.getElementsByTagName('input')
+	        form_fields[1].placeholder='ID..';
+	        form_fields[2].placeholder='Reply..';
+	
+	        for (var field in form_fields){	
+	        form_fields[field].className += ' form-control'
+	        }
+    </script>
+</html>

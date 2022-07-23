@@ -1,0 +1,77 @@
+<html xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+	<h:head>
+		<title>Login</title>
+		<h:outputStylesheet name="/css/bootstrap.min.css"/>  
+	</h:head>
+	<h:body style="background-color: #e8f0eb; padding-top: 50px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px;">
+		<b:navBar brand="LetUsKnow" brandHref="index.jsf" inverse="true" fixed="top">
+            <b:navbarLinks>
+                <b:navLink value="Home" href="index.jsf"> <b:iconAwesome value="fa-home" /> <br/> </b:navLink>
+			    <b:navLink value="Contact Us" href="contact.jsf"></b:navLink>
+			    <b:navLink value="Announcement" href="announcements.jsf"> <b:iconAwesome value="fa-list" /> <br/></b:navLink>
+			    <b:navLink rendered="#{d.directorLoggedIn}" value="Announcement Form" href="announcementform.jsf"></b:navLink>
+			    <b:navLink value="Admin" href="admin"></b:navLink>
+			    <b:navLink value="Director" href="director"></b:navLink>
+			    <b:navLink rendered="#{user.loggedIn}" value="Grieviances" href="grieviances.jsf"><b:iconAwesome value="fa-male" /> <br/></b:navLink>
+			    <b:navLink rendered="#{user.loggedIn}" value="Grieviances Form" href="grievianceform.jsf"><b:iconAwesome value="fa-male" /> <br/></b:navLink>
+            </b:navbarLinks>
+            <h:form styleClass="navbar-form navbar-right">
+                <b:commandButton rendered="#{not user.loggedIn}" action="login.jsf" value="Sign in" look="success" icon="chevron-right" iconAlign="right"/>
+                <h:form>
+                <b:dropButton rendered="#{user.loggedIn}" look="info" value="Account">
+				  <b:commandButton action="profile.jsf" value="Profile" look="info" icon="chevron-right" iconAlign="right"/>	
+				  <b:navLink></b:navLink>	
+				  <b:commandButton action="#{user.logout()}" value="Logout" look="success" icon="chevron-right" iconAlign="right"/>
+				</b:dropButton>
+                </h:form>
+            </h:form>
+        </b:navBar><br /><br /><br /><br /><br /><br /><br />
+		<h:form id="loginForm">
+		  <b:container layout="fluid">
+		    <b:panel title="Login as a Director" look="info">
+		      <b:row>
+		        <b:column medium-screen="2">
+		          <h:outputText value="Username:" for="username" />
+		        </b:column>
+		        <b:column medium-screen="4">
+		          <b:inputText placeholder="Username" id="username" value="#{d.username}">
+		            <f:facet name="prepend">
+		              <b:icon name="user" />
+		            </f:facet>
+		          </b:inputText>
+		        </b:column>
+		      </b:row>
+		      <b:row>
+		        <b:column medium-screen="2">
+		          <h:outputText value="Password:" />
+		        </b:column>
+		        <b:column medium-screen="4">
+		          <b:inputSecret placeholder="Password" id="password" value="#{d.password}">
+		            <f:facet name="prepend">
+		              <b:iconAwesome name="key" />
+		            </f:facet>
+		          </b:inputSecret>
+		        </b:column>
+		      </b:row>
+		      <b:row>
+		        <b:column span="2" offset="2">
+		          <b:commandButton value="Login" action="#{d.login()}"  look="primary"
+		                           style="width:100%" />
+		        </b:column>
+		      </b:row>
+		    </b:panel>
+		  </b:container>
+		</h:form>
+	</h:body>
+	 <script>
+	    var form_fields = document.getElementsByTagName('input')
+	        form_fields[1].placeholder='Username...';
+	        form_fields[2].placeholder='Password...';
+	
+	        for (var field in form_fields){	
+	        form_fields[field].className += ' form-control'
+	        }
+    </script>
+</html>

@@ -1,0 +1,59 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui">
+    <h:head>
+        <title>Let Us Know</title>
+        <meta name="author" content="The Author"></meta>
+    </h:head>
+    <!-- Add 50px padding top to the body for the navbar -->
+    <h:body style="background-color: #e8f0eb; padding-top: 50px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px;">
+        <b:navBar brand="LetUsKnow" brandHref="index.jsf" inverse="true" fixed="top">
+            <b:navbarLinks>
+                <b:navLink value="Home" href="index.jsf"> <b:iconAwesome value="fa-home" /> <br/> </b:navLink>
+			    <b:navLink value="Contact Us" href="contact.jsf"></b:navLink>
+			    <b:navLink value="Announcement" href="announcements.jsf"> <b:iconAwesome value="fa-list" /> <br/></b:navLink>
+			    <b:navLink rendered="#{d.directorLoggedIn}" value="Announcement Form" href="announcementform.jsf"></b:navLink>
+			    <b:navLink value="Admin" href="admin"></b:navLink>
+			    <b:navLink value="Director" href="director"></b:navLink>
+			    <b:navLink rendered="#{user.loggedIn}" value="Grieviances" href="grieviances.jsf"><b:iconAwesome value="fa-male" /> <br/></b:navLink>
+			    <b:navLink rendered="#{user.loggedIn}" value="Grieviances Form" href="grievianceform.jsf"><b:iconAwesome value="fa-male" /> <br/></b:navLink>
+            </b:navbarLinks>
+            <h:form styleClass="navbar-form navbar-right">
+                <b:commandButton rendered="#{not user.loggedIn}" action="login.jsf" value="Sign in" look="success" icon="chevron-right" iconAlign="right"/>
+                <h:form>
+                <b:dropButton rendered="#{user.loggedIn}" look="info" value="Account">
+				  <b:commandButton action="profile.jsf" value="Profile" look="info" icon="chevron-right" iconAlign="right"/>	
+				  <b:navLink></b:navLink>	
+				  <b:commandButton action="#{user.logout()}" value="Logout" look="success" icon="chevron-right" iconAlign="right"/>
+				</b:dropButton>
+                </h:form>
+            </h:form>
+        </b:navBar>
+        <b:jumbotron style="background-color: #f1f8ff; padding: 100px;">
+		  <h1>Let Us Know</h1>
+		  <p>Every employee can rise their voice against the issues</p>
+		  <p><a class="btn btn-warning btn-lg">Learn more</a></p>
+		</b:jumbotron>
+        <b:panel rendered="#{user.loggedIn}">
+            <b:panelGrid colSpans="4,4,4" size="md">
+			  <b:panel title="Book a Grievance?" showCollapseLink="false" look="info">
+			  	<p>Raise your voice against the issues you are facing </p>
+                <p><a href="grievianceform.jsf"><b:button outcome="" value="Book a Grievance »"/></a></p>
+			  </b:panel>
+			  <b:panel title="View Grievances" showCollapseLink="false" look="info">
+			  	<p>Keep track of the issues and their fixes</p>
+                <p><a href="grieviances.jsf"><b:button outcome="" value="View Grievances »"/></a></p>
+			  </b:panel>
+			  <b:panel title="View Announcements" showCollapseLink="false" look="info">
+                <p>Don't forget to look at some of the important stuff posted by the higher-ups.</p>
+                <p><a href="announcements.jsf"><b:button outcome="" value="View announcements »"/></a></p>
+			  </b:panel>
+			</b:panelGrid>
+            <hr/>
+            <footer>
+            <p>© Let Us Know</p>
+            </footer>
+        </b:panel>
+
+    </h:body>
+</html>

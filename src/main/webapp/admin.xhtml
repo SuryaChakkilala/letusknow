@@ -1,0 +1,123 @@
+<html xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+	<h:head>
+		<title>Admin Panel</title>
+	</h:head>
+	<h:body style="background-color: #e8f0eb; padding-top: 50px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px;">
+		<b:navBar brand="LetUsKnow" brandHref="index.jsf" inverse="true" fixed="top">
+            <b:navbarLinks>
+                <b:navLink value="Home" href="index.jsf"> <b:iconAwesome value="fa-home" /> <br/> </b:navLink>
+			    <b:navLink value="Contact Us" href="contact.jsf"></b:navLink>
+			    <b:navLink value="Announcement" href="announcements.jsf"> <b:iconAwesome value="fa-list" /> <br/></b:navLink>
+			    <b:navLink rendered="#{d.directorLoggedIn}" value="Announcement Form" href="announcementform.jsf"></b:navLink>
+			    <b:navLink value="Admin" href="admin"></b:navLink>
+			    <b:navLink value="Director" href="director"></b:navLink>
+			    <b:navLink rendered="#{user.loggedIn}" value="Grieviances" href="grieviances.jsf"><b:iconAwesome value="fa-male" /> <br/></b:navLink>
+			    <b:navLink rendered="#{user.loggedIn}" value="Grieviances Form" href="grievianceform.jsf"><b:iconAwesome value="fa-male" /> <br/></b:navLink>
+            </b:navbarLinks>
+            <h:form styleClass="navbar-form navbar-right">
+                <b:commandButton rendered="#{not user.loggedIn}" action="login.jsf" value="Sign in" look="success" icon="chevron-right" iconAlign="right"/>
+                <h:form>
+                <b:dropButton rendered="#{admin.adminLoggedIn}" look="info" value="Account">
+				  <b:commandButton action="#{admin.logout()}" value="Logout" look="success" icon="chevron-right" iconAlign="right"/>
+				</b:dropButton>
+                </h:form>
+            </h:form>
+        </b:navBar>
+		<h1>Admin Panel</h1>
+		#{user.ack}
+		<hr /><br />
+		
+		<h1>User Mangement</h1>
+		<b:dataTable value="#{user.users}"
+               var="row"
+               excel="true"
+               csv="true"
+               pdf="true"
+               columnVisibility="true"
+               copy="true"
+               print="true"
+               >
+	    <b:dataTableColumn value="#{row.username}"  order="asc" />
+	    <b:dataTableColumn value="#{row.firstName}" />
+	    <b:dataTableColumn value="#{row.lastName}" />
+	    <b:dataTableColumn value="#{row.address}"/>
+	    <b:dataTableColumn value="#{row.dateOfBirth}" />
+	    <b:dataTableColumn value="#{row.department}" />
+	    <b:dataTableColumn value="#{row.organization}" />
+	    <b:dataTableColumn value="#{row.designation}" />
+	  </b:dataTable>
+	  <h2>Enter username of user to delete</h2>
+	  <h:form>
+			<h:inputText value="#{user.username}" />
+			<h:commandButton action="#{user.delete()}" value="Delete" />
+		</h:form><br /><br />
+		<h1>Directors Management</h1>
+		<b:dataTable value="#{d.directors}"
+               var="row"
+               excel="true"
+               csv="true"
+               pdf="true"
+               columnVisibility="true"
+               copy="true"
+               print="true"
+               >
+               	<b:dataTableColumn value="#{row.username}"  order="asc" />
+	    	   	<b:dataTableColumn value="#{row.name}" />
+         </b:dataTable>
+         <h2>Enter username of Director to remove</h2>
+         <h:form>
+			<h:inputText value="#{d.username}" />
+			<h:commandButton action="#{d.deleteDirector()}" value="Delete" />
+		</h:form><br /><br />
+		<h:form>
+		<h1>Grieviance Management</h1>
+		  <b:dataTable class="margin: 20px;" value="#{grieviance.grieviances}"
+		               var="row"
+		               excel="true"
+		               csv="true"
+		               pdf="true"
+		               columnVisibility="true"
+		               copy="true"
+		               print="true"
+		               >
+		    <b:dataTableColumn value="#{row.id}"  order="asc" />
+		    <b:dataTableColumn value="#{row.subject}" />
+		    <b:dataTableColumn value="#{row.organization}" />
+		    <b:dataTableColumn value="#{row.department}" />
+		    <b:dataTableColumn value="#{row.issue}"/>
+		    <b:dataTableColumn value="#{row.username}" />
+		    <b:dataTableColumn value="#{row.type}" />
+		  </b:dataTable>
+		</h:form>
+		<h:form>
+			<h2>Enter the ID of the Grievance to remove</h2>
+			<h:inputText value="#{grieviance.id}" />
+			<h:commandButton action="#{grieviance.delete()}" value="Delete" />
+		</h:form><br /><br />
+		
+		<h2>Reply Management</h2>
+		<h:form>
+		  <b:dataTable class="margin: 20px;" value="#{reply.replies}"
+		               var="row"
+		               excel="true"
+		               csv="true"
+		               pdf="true"
+		               columnVisibility="true"
+		               copy="true"
+		               print="true"
+		               >
+		    <b:dataTableColumn value="#{row.id}"  order="asc" />
+		    <b:dataTableColumn value="#{row.subject}" />
+		    <b:dataTableColumn value="#{row.reply}" />
+		    <b:dataTableColumn value="#{row.postedby}"/>
+		  </b:dataTable>
+		</h:form>
+	</h:body>
+	<h:form>
+			<h2>Enter the ID of the Reply to remove</h2>
+			<h:inputText value="#{reply.id}" />
+			<h:commandButton action="#{reply.delete()}" value="Delete" />
+		</h:form><br /><br />
+</html>
