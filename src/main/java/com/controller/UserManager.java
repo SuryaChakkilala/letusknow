@@ -6,9 +6,11 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import com.entity.User;
+import com.model.JMSService;
 import com.model.UserRemote;
 import com.utils.SessionUtils;
 
@@ -28,6 +30,9 @@ public class UserManager {
 	
 	@EJB(lookup="java:global/letusknow/UserModel")
 	UserRemote ur;
+	
+	@Inject
+	JMSService jms;
 
 	public String getFirstName() {
 		return firstName;
@@ -142,15 +147,18 @@ public class UserManager {
 			System.out.println("VALID");
 			return "index";
 		} else {
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN,
-							"Incorrect Username and Passowrd",
-							"Please enter correct username and Password"));
+//			FacesContext.getCurrentInstance().addMessage(
+//					null,
+//					new FacesMessage(FacesMessage.SEVERITY_WARN,
+//							"Incorrect Username and Passowrd",
+//							"Please enter correct username and Password"));
+//			jms.sendMessage("Incorrect credentials. Please enter valid username and password");
+			this.ack = "Incorrect credentials. Please enter valid username and password";
 			return "login";
 		}
 	}
 	public String logout() {
+		jms.sendMessage(SessionUtils.getSession().getAttribute("username") + " successfully logged out");
 		SessionUtils.getSession().invalidate();
 		return "login";
 	}
